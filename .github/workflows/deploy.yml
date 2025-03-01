@@ -27,7 +27,8 @@ jobs:
           docker build -t your-dockerhub-letsadvertize/vscodeautomation-backend:latest ./backend
           docker push your-dockerhub-letsadvertize/vscodeautomation-backend:latest
 
-      - name: Build and Push Frontend Image
+      - name: Build and Push Backend Image
         run: |
-          docker build -t your-dockerhub-letsadvertize/vscodeautomation-frontend:latest ./frontend
-          docker push your-dockerhub-letsadvertize/vscodeautomation-frontend:latest
+        docker build -t letsadvertize/vscodeautomation-backend:latest ./backend
+        echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+        docker push letsadvertize/vscodeautomation-backend:latest
